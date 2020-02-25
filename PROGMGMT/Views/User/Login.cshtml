@@ -1,0 +1,57 @@
+﻿@model PROGMGMT.Models.User.Condition
+@{
+  Layout = null;
+  ViewBag.Title = "進捗管理 ログイン";
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
+
+    @Styles.Render("~/Content/bootstrap.min.css")
+    @Styles.Render("~/Content/Login.css")
+
+    <title>進捗管理システム ログイン</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="top">進捗管理システム ログイン</div>
+    <br>
+    @using (@Html.BeginForm())
+    {
+      <div class="main">
+        <div>
+          <div>
+            <label> @Html.DisplayNameFor(model => model.Id)</label>
+            @Html.TextBoxFor(model => model.Id, new { size = 10, maxlength = 4, id = "Id" })
+          </div>
+        </div>
+        <br>
+        <div>
+          <div>
+            <label> @Html.DisplayNameFor(model => model.Password)</label>
+            @Html.PasswordFor(model => model.Password, new { size = 10, maxlength = 4, id = "Pass" })
+          </div>
+        </div>
+        <br>
+        <div>
+          <input type="submit" class="btn" value="ログイン" />
+        </div>
+      </div>
+    }
+    <hr>
+    <div class="message">
+      @Html.ValidationSummary()
+    </div>
+  </div>
+  @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
+  @Scripts.Render("~/Scripts/Common.js")
+  @Scripts.Render("~/Scripts/Login.js")
+</body>
+</html>

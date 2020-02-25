@@ -1,0 +1,47 @@
+﻿@model PROGMGMT.Models.User.Condition
+@{
+  Layout = null;
+  ViewBag.Title = "進捗管理 メニュー";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" cantent="ie=edge">
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
+
+    @Styles.Render("~/Content/bootstrap.min.css")
+    @Styles.Render("~/Content/Login.css")
+
+    <title>進捗管理システム メニュー</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="top">進捗管理システム メニュー </div>
+    @using (Html.BeginForm())
+    {
+        <div class="main">
+          <div class="box">
+            <div class="menu">
+            <font size=" 6">@Html.ActionLink("製版進捗管理", "Search", "Seihan",null,new {target = "_blank" })</font><br>
+            <font size=" 6">@Html.ActionLink("グラビア進捗管理", "Search", "Gurabia", null, new { target = "_blank" })</font><br>
+            <font size=" 6">@Html.ActionLink("刷版進捗管理", "Search", "Sappan", null, new { target = "_blank" })</font><br>
+            <font size=" 6">@Html.ActionLink("樹脂版進捗管理", "Search", "Jushihan", null, new { target = "_blank" })</font><br>
+            @if (Model.PROCESS_CD.Equals("09"))
+            {
+            <font size=" 6">@Html.ActionLink("製版進捗一覧", "Search", "SeihanList", null, new { target = "_blank" })</font><br>
+            <font size=" 6">@Html.ActionLink("グラビア進捗一覧", "Search", "GurabiaList", null, new { target = "_blank" })</font>
+            }
+            </div>
+          </div>
+        </div>
+    }
+    <hr>
+  </div>
+  @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
+  @Styles.Render("~/Content/bootstrap.min.css")
+  @Styles.Render("~/Content/Menu.css")
+</body>
+</html>

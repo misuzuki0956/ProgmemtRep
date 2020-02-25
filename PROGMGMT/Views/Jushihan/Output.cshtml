@@ -1,0 +1,100 @@
+@model PROGMGMT.Models.Jushihan.CsvOutputModel
+@{
+  Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  @Styles.Render("~/Content/bootstrap.min.css")
+  @Styles.Render("~/Content/SeihanSearch.css")
+
+  <title>樹脂版CSV出力画面</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 pageHead">樹脂版CSV出力</div>
+    </div>
+    @using (Html.BeginForm())
+    {
+      <!-- 条件上段 -->
+      <div class="row">
+        <div class="col-sm-1 inputName">
+          @Html.DisplayNameFor(model => model.Condition.OutputDateFrom)
+        </div>
+        <div class="col-sm-5">
+          @Html.TextBoxFor(
+            model => model.Condition.OutputDateFrom
+            , new { type = "date", id = "dateFrom" }
+            )
+          ～
+          @Html.TextBoxFor(
+            model => model.Condition.OutputDateTo
+            , new { type = "date", id = "dateTo" }
+            )
+        </div>
+        <div class="col-sm-1 inputName">
+          @Html.DisplayNameFor(model => model.Condition.OutputProcess)
+        </div>
+        <div class="col-sm-5">
+          @Html.ListBoxFor(
+            model => model.Condition.OutputProcess, Model.Condition.ProcessList
+            , new { id = "listProcess", @size = "3" }
+            )
+        </div>
+      </div>
+
+      <hr />
+
+      <!-- 条件下段 -->
+      <div class="row">
+        <div class="col-sm-1 inputName">
+          @Html.DisplayNameFor(model => model.Condition.Han_Type)
+        </div>
+        <div class="col-sm-11">
+          @Html.ListBoxFor(
+          model => model.Condition.Han_Type, Model.Condition.HanTypeList
+          , new { id = "listHan", @size = "3" }
+          )
+        </div>
+      </div>
+
+      <hr />
+
+      <!-- メッセージ -->
+      <div id="messageArea">
+      @if (!string.IsNullOrWhiteSpace(Model.Condition.ConditionErrorMessage))
+      {
+        <p class="lead">@Model.Condition.ConditionErrorMessage</p>
+      }
+      @if (!string.IsNullOrWhiteSpace(Model.Condition.InputErrorMessage))
+      {
+        <p class="lead">@Model.Condition.InputErrorMessage</p>
+      }
+      @if (!string.IsNullOrWhiteSpace(Model.CsvErrorMessage))
+      {
+        <p class="lead">@Model.CsvErrorMessage</p>
+      }
+      </div>
+
+      <!-- 出力・クリア -->
+      <div class="row">
+        <div class="col-sm-2 col-sm-offset-4">
+          <input type="submit" class="btn" value="出　力" />
+        </div>
+        <div class="col-sm-2">
+          <button type="button" class="btn" id="btnClear">クリア</button>
+        </div>
+      </div>
+    }
+  </div>
+  @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
+  @Scripts.Render("~/Scripts/bootstrap.min.js")
+  @Scripts.Render("~/Scripts/JushihanOutput.js")
+</body>
+</html>

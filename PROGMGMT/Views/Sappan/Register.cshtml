@@ -1,0 +1,578 @@
+﻿@model PROGMGMT.Models.Sappan.RegisterViewModel
+@{
+  Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  @Styles.Render("~/Content/bootstrap.min.css")
+  @Styles.Render("~/Content/SeihanRegister.css")
+
+  <title>刷版進捗登録画面</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 pageHead">刷版作業完了登録</div>
+    </div>
+    <!-- ヘッダ -->
+    <div class="row rowHeader">
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.SUBNEGA_NO)</div>
+      <div class="col-sm-2">@Model.Header.SUBNEGA_NO</div>
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.SPDPY_NO)</div>
+      <div class="col-sm-2">@Model.Header.SPDPY_NO</div>
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.CMNY_NM)</div>
+      <div class="col-sm-1">@Model.Header.CMNY_NM</div>
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.LOTSU)</div>
+      <div class="col-sm-1">@Model.Header.LOTSU LOT</div>
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.HANSU)</div>
+      <div class="col-sm-1">@Model.Header.HANSU 版</div>
+    </div>
+    <div class="row rowHeader">
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.BURANDO_NM)</div>
+      <div class="col-sm-7">@Model.Header.BURANDO_NM</div>
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.CUSTMER_RNM)</div>
+      <div class="col-sm-3">@Model.Header.CUSTMER_RNM</div>
+    </div>
+    <div class="row rowHeader">
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.SYOHIN_NM)</div>
+      <div class="col-sm-11">@Model.Header.SYOHIN_NM</div>
+    </div>
+    <div class="row rowHeader">
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.KAN_NM)</div>
+      <div class="col-sm-2">@Model.Header.KAN_NM</div>
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.ZUMEN_NO)</div>
+      <div class="col-sm-2">@Model.Header.ZUMEN_NO</div>
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.COLOR_NM)</div>
+      <div class="col-sm-5">@Model.Header.COLOR_NM</div>
+    </div>
+
+    <hr />
+    @if (!string.IsNullOrWhiteSpace(Model.RegisterGroup.ErrorGetMgmtMessage))
+    {
+      <!-- 取得結果 -->
+      <p class="lead">@Model.RegisterGroup.ErrorGetMgmtMessage</p>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(Model.RegistResultMessage))
+    {
+      <!-- 更新結果 -->
+      <p class="lead">@Model.RegistResultMessage</p>
+    }
+
+    @using (Html.BeginForm())
+    {
+
+      <!-- 編集G -->
+      if (Model.RegisterGroup.Henshus != null)
+      {
+        <div class="well">
+          <div class="row">
+            <div class="col-sm-3">
+              <span class="inputName">
+                @Html.DisplayNameFor(model => model.RegisterGroup.Henshus)
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Henshus.YoteiDate)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Henshus.YoteiDate
+                , new { type = "date", @class = "disabled" }
+                )
+            </div>
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Henshus.CommitDate)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Henshus.CommitDate
+                , new { type = "date", @class = (Model.RegisterGroup.Henshus.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Henshus.EmployeeCd)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Henshus.EmployeeCd
+                , new { type = "text", size = "4", maxlength = "4", @class = (Model.RegisterGroup.Henshus.DisabledFlg ? "disabled" : "") }
+                )
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Henshus.EmployeeName
+                , new { size = "10", @class = "disabled" }
+                )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Henshus.WorkTimeFrom)
+            </div>
+            <div class="col-sm-1">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Henshus.WorkTimeFrom
+                , new { type = "time", @class = (Model.RegisterGroup.Henshus.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+            <div class="col-sm-10">
+              @Html.TextAreaFor(
+                model => model.RegisterGroup.Henshus.WorkMemo
+                , new { cols = "60", maxlength = "100", @class = (Model.RegisterGroup.Henshus.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Henshus.Memo)
+            </div>
+            <div class="col-sm-11">
+              @Html.TextAreaFor(
+                model => model.RegisterGroup.Henshus.Memo
+                , new { cols = "90", maxlength = "200", @class = (Model.RegisterGroup.Henshus.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <span class="inputName">
+                @Html.DisplayNameFor(model => model.RegisterGroup.Henshuk)
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Henshuk.YoteiDate)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Henshuk.YoteiDate
+                , new { type = "date", @class = "disabled" }
+                )
+            </div>
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Henshuk.CommitDate)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Henshuk.CommitDate
+                , new { type = "date", @class = (Model.RegisterGroup.Henshuk.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Henshuk.EmployeeCd)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Henshuk.EmployeeCd
+                , new { type = "text", size = "4", maxlength = "4", @class = (Model.RegisterGroup.Henshuk.DisabledFlg ? "disabled" : "") }
+                )
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Henshuk.EmployeeName
+                , new { size = "10", @class = "disabled" }
+                )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Henshuk.WorkTimeFrom)
+            </div>
+            <div class="col-sm-1">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Henshuk.WorkTimeFrom
+                , new { type = "time", @class = (Model.RegisterGroup.Henshuk.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+            <div class="col-sm-10">
+              @Html.TextAreaFor(
+                model => model.RegisterGroup.Henshuk.WorkMemo
+                , new { cols = "60", maxlength = "100", @class = (Model.RegisterGroup.Henshuk.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Henshuk.Memo)
+            </div>
+            <div class="col-sm-11">
+              @Html.TextAreaFor(
+                model => model.RegisterGroup.Henshuk.Memo
+                , new { cols = "90", maxlength = "200", @class = (Model.RegisterGroup.Henshuk.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- 検査G -->
+      if (Model.RegisterGroup.Kensa != null)
+      {
+        <div class="well">
+          <div class="row">
+            <div class="col-sm-3">
+              <span class="inputName">
+                @Html.DisplayNameFor(model => model.RegisterGroup.Kensa)
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Kensa.YoteiDate)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Kensa.YoteiDate
+                , new { type = "date", @class = "disabled" }
+                )
+            </div>
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Kensa.CommitDate)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Kensa.CommitDate
+                , new { type = "date", @class = (Model.RegisterGroup.Kensa.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Kensa.EmployeeCd)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Kensa.EmployeeCd
+                , new { type = "text", size = "4", maxlength = "4", @class = (Model.RegisterGroup.Kensa.DisabledFlg ? "disabled" : "") }
+                )
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Kensa.EmployeeName
+                , new { size = "10", @class = "disabled" }
+                )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Kensa.WorkTimeFrom)
+            </div>
+            <div class="col-sm-1">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Kensa.WorkTimeFrom
+                , new { type = "time", @class = (Model.RegisterGroup.Kensa.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+            <div class="col-sm-10">
+              @Html.TextAreaFor(
+                model => model.RegisterGroup.Kensa.WorkMemo
+                , new { cols = "60", maxlength = "100", @class = (Model.RegisterGroup.Kensa.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Kensa.Memo)
+            </div>
+            <div class="col-sm-11">
+              @Html.TextAreaFor(
+                model => model.RegisterGroup.Kensa.Memo
+                , new { cols = "90", maxlength = "200", @class = (Model.RegisterGroup.Kensa.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- 刷版G 製造 -->
+      if (Model.RegisterGroup.Sappans != null)
+      {
+        <div class="well">
+          <div class="row">
+            <div class="col-sm-3">
+              <span class="inputName">
+                @Html.DisplayNameFor(model => model.RegisterGroup.Sappans)
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Sappans.YoteiDate)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Sappans.YoteiDate
+                , new { type = "date", @class = "disabled" }
+                )
+            </div>
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Sappans.CommitDate)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Sappans.CommitDate
+                , new { type = "date", @class = (Model.RegisterGroup.Sappans.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Sappans.EmployeeCd)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Sappans.EmployeeCd
+                , new { type = "text", size = "4", maxlength = "4", @class = (Model.RegisterGroup.Sappans.DisabledFlg ? "disabled" : "") }
+                )
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Sappans.EmployeeName
+                , new { size = "10", @class = "disabled" }
+                )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Sappans.WorkTimeFrom)
+            </div>
+            <div class="col-sm-1">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Sappans.WorkTimeFrom
+                , new { type = "time", @class = (Model.RegisterGroup.Sappans.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+            <div class="col-sm-10">
+              @Html.TextAreaFor(
+                model => model.RegisterGroup.Sappans.WorkMemo
+                , new { cols = "60", maxlength = "100", @class = (Model.RegisterGroup.Sappans.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Sappans.OutHan)
+            </div>
+            <div class="col-sm-2">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Sappans.OutHan
+                , new { type = "number",min="0", max = "99", id = "Hansu", @class = (Model.RegisterGroup.Sappans.DisabledFlg ? "disabled" : "") }
+                ) 版
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Sappans.Memo)
+            </div>
+            <div class="col-sm-11">
+              @Html.TextAreaFor(
+                model => model.RegisterGroup.Sappans.Memo
+                , new { cols = "90", maxlength = "200", @class = (Model.RegisterGroup.Sappans.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- 刷版G 検版 -->
+      if (Model.RegisterGroup.Sappank != null)
+      {
+        <div class="well">
+          <div class="row">
+            <div class="col-sm-3">
+              <span class="inputName">
+                @Html.DisplayNameFor(model => model.RegisterGroup.Sappank)
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Sappank.YoteiDate)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Sappank.YoteiDate
+                , new { type = "date", @class = "disabled" }
+                )
+            </div>
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Sappank.CommitDate)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Sappank.CommitDate
+                , new { type = "date", @class = (Model.RegisterGroup.Sappank.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Sappank.EmployeeCd)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Sappank.EmployeeCd
+                , new { type = "text", size = "4", maxlength = "4", @class = (Model.RegisterGroup.Sappank.DisabledFlg ? "disabled" : "") }
+                )
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Sappank.EmployeeName
+                , new { size = "10", @class = "disabled" }
+                )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Sappank.WorkTimeFrom)
+            </div>
+            <div class="col-sm-1">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Sappank.WorkTimeFrom
+                , new { type = "time", @class = (Model.RegisterGroup.Sappank.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+            <div class="col-sm-10">
+              @Html.TextAreaFor(
+                model => model.RegisterGroup.Sappank.WorkMemo
+                , new { cols = "60", maxlength = "100", @class = (Model.RegisterGroup.Sappank.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Sappank.Memo)
+            </div>
+            <div class="col-sm-11">
+              @Html.TextAreaFor(
+                model => model.RegisterGroup.Sappank.Memo
+                , new { cols = "90", maxlength = "200", @class = (Model.RegisterGroup.Sappank.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- 業務課出荷 -->
+      if (Model.RegisterGroup.Gyoumu != null)
+      {
+        <div class="well">
+          <div class="row">
+            <div class="col-sm-3">
+              <span class="inputName">
+                @Html.DisplayNameFor(model => model.RegisterGroup.Gyoumu)
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Gyoumu.YoteiDate)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Gyoumu.YoteiDate
+                , new { type = "date", @class = "disabled" }
+                )
+            </div>
+            <div class="col-sm-1">
+              出荷日
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Gyoumu.CommitDate
+                , new { type = "date", @class = (Model.RegisterGroup.Gyoumu.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Gyoumu.EmployeeCd)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Gyoumu.EmployeeCd
+                , new { type = "text", size = "4", maxlength = "4", @class = (Model.RegisterGroup.Gyoumu.DisabledFlg ? "disabled" : "") }
+                )
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Gyoumu.EmployeeName
+                , new { size = "10", @class = "disabled" }
+                )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Gyoumu.WorkTimeFrom)
+            </div>
+            <div class="col-sm-1">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Gyoumu.WorkTimeFrom
+                , new { type = "time", @class = (Model.RegisterGroup.Gyoumu.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+            <div class="col-sm-10">
+              @Html.TextAreaFor(
+                model => model.RegisterGroup.Gyoumu.WorkMemo
+                , new { cols = "60", maxlength = "100", @class = (Model.RegisterGroup.Gyoumu.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Gyoumu.CaseNo)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Gyoumu.CaseNo
+                , new {  type = "number",min="0", max = "9999999999", id = "CaseNo", @class = (Model.RegisterGroup.Gyoumu.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+            <div class="col-sm-3">
+              @if (Model.RegisterGroup.Gyoumu.Chk2.Equals("1"))
+              {
+                @Html.CheckBoxFor(
+                           model => model.RegisterGroup.Gyoumu.DocFlg
+                           , new { id = "chkDoc", @class = (Model.RegisterGroup.Gyoumu.DisabledFlg ? "disabled" : "") }
+                           )
+                <label for="chkDoc">
+                  @Html.DisplayNameFor(model => model.RegisterGroup.Gyoumu.DocFlg)
+                </label>
+              }
+            </div>
+            <div class="col-sm-3">
+              @if (Model.RegisterGroup.Gyoumu.Chk1.Equals("1"))
+              {
+                @Html.CheckBoxFor(
+                  model => model.RegisterGroup.Gyoumu.ColorFlg
+                  , new { id = "chkCol", @class = (Model.RegisterGroup.Gyoumu.DisabledFlg ? "disabled" : "") }
+                  )
+                <label for="chkCol">
+                  @Html.DisplayNameFor(model => model.RegisterGroup.Gyoumu.ColorFlg)
+                </label>
+              }
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Gyoumu.Memo)
+            </div>
+            <div class="col-sm-11">
+              @Html.TextAreaFor(
+                model => model.RegisterGroup.Gyoumu.Memo
+                , new { cols = "90", maxlength = "200", @class = (Model.RegisterGroup.Gyoumu.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+          </div>
+        </div>
+      }
+
+      <hr />
+      <!-- 登録ボタン -->
+      <div class="row">
+        <div class="col-sm-2 col-sm-offset-9">
+          <input type="submit" class="btn btn-block" value="登　録">
+        </div>
+      </div>
+    }
+
+  </div>
+  @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
+  @Scripts.Render("~/Scripts/bootstrap.min.js")
+  @Scripts.Render("~/Scripts/Common.js")
+  <script>
+   var empList = @Html.Raw(Json.Encode(Model.RegisterGroup.EmployeeList));
+  </script>
+  @Scripts.Render("~/Scripts/SappanRegister.js")
+</body>
+</html>

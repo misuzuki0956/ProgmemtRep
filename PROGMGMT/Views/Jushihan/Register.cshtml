@@ -1,0 +1,382 @@
+@model PROGMGMT.Models.Jushihan.RegisterViewModel
+@{
+  Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  @Styles.Render("~/Content/bootstrap.min.css")
+  @Styles.Render("~/Content/SeihanRegister.css")
+
+  <title>é˜éâî≈êiíªìoò^âÊñ </title>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 pageHead">é˜éâî≈çÏã∆äÆóπìoò^</div>
+    </div>
+
+    <!-- ÉwÉbÉ_ -->
+    <div class="row rowHeader">
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.SUBNEGA_NO)</div>
+      <div class="col-sm-2">@Model.Header.SUBNEGA_NO</div>
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.JSBDPY_NO)</div>
+      <div class="col-sm-2">@Model.Header.JSBDPY_NO</div>
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.CMNY)</div>
+      <div class="col-sm-1">@Model.Header.CMNY</div>
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.LOTSU)</div>
+      <div class="col-sm-1">@Model.Header.LOTSU LOT</div>
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.HANSU)</div>
+      <div class="col-sm-1">@Model.Header.HANSU î≈</div>
+    </div>
+    <div class="row rowHeader">
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.BURANDO_NM)</div>
+      <div class="col-sm-7">@Model.Header.BURANDO_NM</div>
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.CUSTMER_RNM)</div>
+      <div class="col-sm-3">@Model.Header.CUSTMER_RNM </div>
+    </div>
+    <div class="row rowHeader">
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.SYOHIN_NM)</div>
+      <div class="col-sm-11">@Model.Header.SYOHIN_NM</div>
+    </div>
+    <div class="row rowHeader">
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.KAN_NM)</div>
+      <div class="col-sm-2">@Model.Header.KAN_NM</div>
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.ZUMEN_NO)</div>
+      <div class="col-sm-2">@Model.Header.ZUMEN_NO</div>
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.HAN_KBN)</div>
+      <div class="col-sm-1">@Model.Header.HAN_KBN</div>
+      <div class="col-sm-1">@Html.DisplayNameFor(model => model.Header.COLOR_NM)</div>
+      <div class="col-sm-3">@Model.Header.COLOR_NM</div>
+    </div>
+
+    <hr />
+    @if (!string.IsNullOrWhiteSpace(Model.RegisterGroup.ErrorGetMgmtMessage))
+    {
+      <!-- éÊìæåãâ  -->
+      <p class="lead">@Model.RegisterGroup.ErrorGetMgmtMessage</p>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(Model.RegistResultMessage))
+    {
+      <!-- çXêVåãâ  -->
+      <p class="lead">@Model.RegistResultMessage</p>
+    }
+
+    @using (Html.BeginForm())
+    {
+      <!-- ç¸î≈GÅ@êªë¢ -->
+      if (Model.RegisterGroup.Spnseizo != null)
+      {
+        <div class="well">
+          <div class="row">
+            <div class="col-sm-3">
+              <span class="inputName">
+                @Html.DisplayNameFor(model => model.RegisterGroup.Spnseizo)
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Spnseizo.YoteiDate)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+             model => model.RegisterGroup.Spnseizo.YoteiDate
+             , new { type = "date", @class = "disabled" }
+             )
+            </div>
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Spnseizo.CommitDate)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Spnseizo.CommitDate
+                , new { type = "date", @class = (Model.RegisterGroup.Spnseizo.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Spnseizo.EmployeeCd)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+             model => model.RegisterGroup.Spnseizo.EmployeeCd
+             , new { type = "tel", size = "4", maxlength = "4", @class = (Model.RegisterGroup.Spnseizo.DisabledFlg ? "disabled" : "") }
+             )
+              @Html.TextBoxFor(
+             model => model.RegisterGroup.Spnseizo.EmployeeName
+             , new { size = "8", @class = "disabled" }
+             )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Spnseizo.WorkTimeFrom)
+            </div>
+            <div class="col-sm-1">
+              @Html.TextBoxFor(
+             model => model.RegisterGroup.Spnseizo.WorkTimeFrom
+             , new { type = "time", @class = (Model.RegisterGroup.Spnseizo.DisabledFlg ? "disabled" : "") }
+             )
+            </div>
+            <div class="col-sm-10">
+              @Html.TextAreaFor(
+             model => model.RegisterGroup.Spnseizo.WorkMemo
+             , new { cols = "60", maxlength = "100", @class = (Model.RegisterGroup.Spnseizo.DisabledFlg ? "disabled" : "") }
+             )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Spnseizo.PRODUCT_LINE)
+            </div>
+            <div class="col-sm-2">
+              @Html.TextBoxFor(
+             model => model.RegisterGroup.Spnseizo.PRODUCT_LINE
+             , new {  type = "number",min="0", max = "99", id = "PRODUCT_LINE", @class = (Model.RegisterGroup.Spnseizo.DisabledFlg ? "disabled" : "") }
+            )
+            </div>
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Spnseizo.GENSHO_LINE)
+            </div>
+            <div class="col-sm-2">
+              @Html.TextBoxFor(
+             model => model.RegisterGroup.Spnseizo.GENSHO_LINE
+             , new {  type = "number",min="0", max = "99", id = "GENSHO_LINE", @class = (Model.RegisterGroup.Spnseizo.DisabledFlg ? "disabled" : "") }
+            )
+            </div>
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Spnseizo.OUT_HANSU)
+            </div>
+            <div class="col-sm-2">
+              @Html.TextBoxFor(
+             model => model.RegisterGroup.Spnseizo.OUT_HANSU
+             , new {  type = "number",min="0", max = "99", id = "OUT_HANSU", @class = (Model.RegisterGroup.Spnseizo.DisabledFlg ? "disabled" : "") }
+            ) î≈
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Spnseizo.Memo)
+            </div>
+            <div class="col-sm-11">
+              @Html.TextAreaFor(
+             model => model.RegisterGroup.Spnseizo.Memo
+             , new { cols = "90", maxlength = "200", @class = (Model.RegisterGroup.Spnseizo.DisabledFlg ? "disabled" : "") }
+             )
+            </div>
+          </div>
+        </div>
+      }
+
+      <!--ç¸î≈GÅ@åüî≈-->
+      if (Model.RegisterGroup.Spnkensa != null)
+      {
+        <div class="well">
+          <div class="row">
+            <div class="col-sm-3">
+              <span class="inputName">
+                ç¸î≈GÅ@åüî≈
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Spnkensa.YoteiDate)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+             model => model.RegisterGroup.Spnkensa.YoteiDate
+             , new { type = "date", @class = "disabled" }
+             )
+            </div><div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Spnkensa.CommitDate)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Spnkensa.CommitDate
+                , new { type = "date", @class = (Model.RegisterGroup.Spnkensa.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Spnkensa.EmployeeCd)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+             model => model.RegisterGroup.Spnkensa.EmployeeCd
+             , new { type = "text", size = "4", maxlength = "4", @class = (Model.RegisterGroup.Spnkensa.DisabledFlg ? "disabled" : "") }
+             )
+              @Html.TextBoxFor(
+             model => model.RegisterGroup.Spnkensa.EmployeeName
+             , new { size = "10", @class = "disabled" }
+             )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Spnkensa.WorkTimeFrom)
+            </div>
+            <div class="col-sm-1">
+              @Html.TextBoxFor(
+             model => model.RegisterGroup.Spnkensa.WorkTimeFrom
+             , new { type = "time", @class = (Model.RegisterGroup.Spnkensa.DisabledFlg ? "disabled" : "") }
+             )
+            </div>
+            <div class="col-sm-10">
+              @Html.TextAreaFor(
+             model => model.RegisterGroup.Spnkensa.WorkMemo
+             , new { cols = "60", maxlength = "100", @class = (Model.RegisterGroup.Spnkensa.DisabledFlg ? "disabled" : "") }
+             )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Spnkensa.Memo)
+            </div>
+            <div class="col-sm-11">
+              @Html.TextAreaFor(
+             model => model.RegisterGroup.Spnkensa.Memo
+             , new { cols = "90", maxlength = "200", @class = (Model.RegisterGroup.Spnkensa.DisabledFlg ? "disabled" : "") }
+             )
+            </div>
+          </div>
+        </div>
+      }
+      <!-- ã∆ñ±â€èoâ◊ -->
+      if (Model.RegisterGroup.Gyoumu != null)
+      {
+        <div class="well">
+          <div class="row">
+            <div class="col-sm-3">
+              <span class="inputName">
+                @Html.DisplayNameFor(model => model.RegisterGroup.Gyoumu)
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Gyoumu.YoteiDate)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+             model => model.RegisterGroup.Gyoumu.YoteiDate
+             , new { type = "date", @class = "disabled" }
+             )
+            </div>
+            <div class="col-sm-1">
+              <th>
+                èoâ◊ì˙
+              </th>
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+                model => model.RegisterGroup.Gyoumu.CommitDate
+                , new { type = "date", @class = (Model.RegisterGroup.Gyoumu.DisabledFlg ? "disabled" : "") }
+                )
+            </div>
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Gyoumu.EmployeeCd)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+             model => model.RegisterGroup.Gyoumu.EmployeeCd
+             , new { type = "text", size = "4", maxlength = "4", @class = (Model.RegisterGroup.Gyoumu.DisabledFlg ? "disabled" : "") }
+             )
+              @Html.TextBoxFor(
+             model => model.RegisterGroup.Gyoumu.EmployeeName
+             , new { size = "10", @class = "disabled" }
+             )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Gyoumu.WorkTimeFrom)
+            </div>
+            <div class="col-sm-1">
+              @Html.TextBoxFor(
+             model => model.RegisterGroup.Gyoumu.WorkTimeFrom
+             , new { type = "time", @class = (Model.RegisterGroup.Gyoumu.DisabledFlg ? "disabled" : "") }
+             )
+            </div>
+            <div class="col-sm-10">
+              @Html.TextAreaFor(
+             model => model.RegisterGroup.Gyoumu.WorkMemo
+             , new { cols = "60", maxlength = "100", @class = (Model.RegisterGroup.Gyoumu.DisabledFlg ? "disabled" : "") }
+             )
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(
+             model => model.RegisterGroup.Gyoumu.CaseNo)
+            </div>
+            <div class="col-sm-3">
+              @Html.TextBoxFor(
+             model => model.RegisterGroup.Gyoumu.CaseNo
+             , new { type = "number",min="0", max = "9999999999", id = "CaseNo", @class = (Model.RegisterGroup.Gyoumu.DisabledFlg ? "disabled" : "") }
+             )
+            </div>
+
+            <div class="col-sm-3">
+              @if (Model.RegisterGroup.Gyoumu.Chk2.Equals("1"))
+              {
+                @Html.CheckBoxFor(
+                           model => model.RegisterGroup.Gyoumu.DocFlg
+                           , new { id = "chkDoc", @class = (Model.RegisterGroup.Gyoumu.DisabledFlg ? "disabled" : "") }
+                           )
+                <label for="chkDoc">
+                  @Html.DisplayNameFor(model => model.RegisterGroup.Gyoumu.DocFlg)
+                </label>
+              }
+            </div>
+            <div class="col-sm-3">
+              @if (Model.RegisterGroup.Gyoumu.Chk1.Equals("1"))
+              {
+                @Html.CheckBoxFor(
+                  model => model.RegisterGroup.Gyoumu.ColorFlg
+                  , new { id = "chkCol", @class = (Model.RegisterGroup.Gyoumu.DisabledFlg ? "disabled" : "") }
+                  )
+                <label for="chkCol">
+                  @Html.DisplayNameFor(model => model.RegisterGroup.Gyoumu.ColorFlg)
+                </label>
+              }
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-sm-1">
+              @Html.DisplayNameFor(model => model.RegisterGroup.Gyoumu.Memo)
+            </div>
+            <div class="col-sm-11">
+              @Html.TextAreaFor(
+             model => model.RegisterGroup.Gyoumu.Memo
+             , new { cols = "90", maxlength = "200", @class = (Model.RegisterGroup.Gyoumu.DisabledFlg ? "disabled" : "") }
+             )
+            </div>
+          </div>
+        </div>
+      }
+      <hr />
+      <!-- ìoò^É{É^Éì -->
+      <div class="row">
+        <div class="col-sm-2 col-sm-offset-9">
+          <input type="submit" class="btn btn-block" value="ìoÅ@ò^">
+        </div>
+      </div>
+    }
+  </div>
+  @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
+  @Scripts.Render("~/Scripts/bootstrap.min.js")
+  @Scripts.Render("~/Scripts/Common.js")
+  <script>
+    var empList = @Html.Raw(Json.Encode(Model.RegisterGroup.EmployeeList));
+  </script>
+  @Scripts.Render("~/Scripts/JushihanRegister.js")
+</body>
+</html>

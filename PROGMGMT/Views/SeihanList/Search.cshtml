@@ -1,0 +1,258 @@
+﻿@model PROGMGMT.Models.SeihanList.SearchViewModel
+@{
+  Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
+
+    @Styles.Render("~/Content/bootstrap.min.css")
+    @Styles.Render("~/Content/SeihanListSearch.css")
+
+    <title>製版進捗一覧画面</title>
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 pageHead">製版進捗一覧画面</div>
+        </div>
+        @using (Html.BeginForm())
+        {
+
+            <!-- 検索上段 -->
+            <div class="row">
+                <div class="col-sm-1 inputName">
+                    @Html.DisplayNameFor(model => model.Condition.YoteiDayFrom)
+                </div>
+                <div class="col-sm-5">
+                    @Html.TextBoxFor(
+                      model => model.Condition.YoteiDayFrom
+                      , new { type = "date", id = "dateFrom" }
+                      )
+                    ～
+                    @Html.TextBoxFor(
+                      model => model.Condition.YoteiDayTo
+                      , new { type = "date", id = "dateTo" }
+                      )
+                </div>
+            </div>
+
+            <hr />
+
+            <!-- 検索下段 -->
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-2 inputName">
+                            @Html.DisplayNameFor(model => model.Condition.Kosei_Kbn)
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.ListBoxFor(
+                              model => model.Condition.Kosei_Kbn, Model.Condition.KoseiList
+                              , new { id = "listKosei", @size = "3" }
+                              )
+                        </div>
+                        <div class="col-sm-2 inputName">
+                            @Html.DisplayNameFor(model => model.Condition.Han_Type)
+                        </div>
+                        <div class="col-sm-5">
+                            @Html.ListBoxFor(
+                              model => model.Condition.Han_Type, Model.Condition.HanTypeList
+                              , new { id = "listHan", @size = "3" }
+                              )
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2 inputName">
+                            @Html.DisplayNameFor(model => model.Condition.Shohin_Name)
+                        </div>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(
+                              model => model.Condition.Shohin_Name
+                              , new { id = "txtShohin", size = 60, maxlength = 60 }
+                              )
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1 inputName">
+                    @Html.DisplayNameFor(model => model.Condition.Nega_No)
+                </div>
+                <div class="col-sm-2">
+                    @Html.TextBoxFor(
+                      model => model.Condition.Nega_No
+                          , new { id = "txtNega", maxlength = "16" }
+                      )
+                </div>
+                <div class="col-sm-1 inputName">
+                    @Html.DisplayNameFor(model => model.Condition.Dpy_No)
+                </div>
+                <div class="col-sm-2">
+                    @Html.TextBoxFor(
+                      model => model.Condition.Dpy_No
+                          , new { id = "txtDpy", maxlength = "16" }
+                      )
+                </div>
+            </div>
+
+            <hr />
+
+            <!-- 検索・クリア -->
+            <div class="row">
+                <div class="col-sm-2 col-sm-offset-4">
+                    <input type="submit" class="btn" value="検　索" />
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn" id="btnReset">リセット</button>
+                </div>
+                <div class="col-sm-2 col-sm-offset-2">
+                    @Html.DisplayNameFor(model => model.ResultCount)
+                    @Html.DisplayFor(model => model.ResultCount)
+                </div>
+            </div>
+
+            <!-- メッセージ -->
+            if (!string.IsNullOrWhiteSpace(Model.Condition.ConditionErrorMessage))
+            {
+                <p class="lead">@Model.Condition.ConditionErrorMessage</p>
+            }
+            if (!string.IsNullOrWhiteSpace(Model.Condition.InputErrorMessage))
+            {
+                <p class="lead">@Model.Condition.InputErrorMessage</p>
+            }
+            if (!string.IsNullOrWhiteSpace(Model.SearchErrorMessage))
+            {
+                <p class="lead">@Model.SearchErrorMessage</p>
+            }
+
+        }
+
+        <hr />
+        <!-- 検索結果 -->
+        @if (Model.SearchResults != null && Model.SearchResults.Count > 0)
+        {
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-striped table-condensed table-bordered" id="tblResult">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.SearchResults[0].CMNY)</th>
+                                <th>@Html.DisplayNameFor(model => model.SearchResults[0].CMKBN)</th>
+                                <th>@Html.DisplayNameFor(model => model.SearchResults[0].DPY_NO)</th>
+                                <th>@Html.DisplayNameFor(model => model.SearchResults[0].SUBNEGA_NO)</th>
+                                <th>@Html.DisplayNameFor(model => model.SearchResults[0].BURANDO_NM)</th>
+                                <th>@Html.DisplayNameFor(model => model.SearchResults[0].SYOHIN_NM)</th>
+                                <th>@Html.DisplayNameFor(model => model.SearchResults[0].KAN_NM)</th>
+                                <th>@Html.DisplayNameFor(model => model.SearchResults[0].ZUMEN_NO)</th>
+                                <th>@Html.DisplayNameFor(model => model.SearchResults[0].HAN_KBN)</th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].HANSHITA_YOTEI)<br />
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].HANSHITA_COMMIT)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].HENSHUH_YOTEI)<br />
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].HENSHUH_COMMIT)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].HENSHUK_YOTEI)<br />
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].HENSHUK_COMMIT)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].KENSA1_YOTEI)<br />
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].KENSA1_COMMIT)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].KENSA2_YOTEI)<br />
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].KENSA2_COMMIT)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].HKOSEI_YOTEI)<br />
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].HKOSEI_COMMIT)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].KKOSEI_YOTEI)<br />
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].KKOSEI_COMMIT)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].KOSEIKENSA_YOTEI)<br />
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].KOSEIKENSA_COMMIT)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].GYOUMU_YOTEI)<br />
+                                    @Html.DisplayNameFor(model => model.SearchResults[0].GYOUMU_COMMIT)
+                                </th>
+                                <th>@Html.DisplayNameFor(model => model.SearchResults[0].WORK_MEMO)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.SearchResults)
+                            {
+                                <tr>
+                                    <td>@item.CMNY</td>
+                                    <td>@item.CMKBN</td>
+                                    <td>@item.DPY_NO</td>
+                                    <td>@item.SUBNEGA_NO</td>
+                                    <td>@item.BURANDO_NM</td>
+                                    <td>@item.SYOHIN_NM</td>
+                                    <td>@item.KAN_NM</td>
+                                    <td>@item.ZUMEN_NO</td>
+                                    <td>@item.HAN_KBN</td>
+                                    <td>
+                                        @item.HANSHITA_YOTEI<br />
+                                        @item.HANSHITA_COMMIT
+                                    </td>
+                                    <td>
+                                        @item.HENSHUH_YOTEI<br />
+                                        @item.HENSHUH_COMMIT
+                                    </td>
+                                    <td>
+                                        @item.HENSHUK_YOTEI<br />
+                                        @item.HENSHUK_COMMIT
+                                    </td>
+                                    <td>
+                                        @item.KENSA1_YOTEI<br />
+                                        @item.KENSA1_COMMIT
+                                    </td>
+                                    <td>
+                                        @item.KENSA2_YOTEI<br />
+                                        @item.KENSA2_COMMIT
+                                    </td>
+                                    <td>
+                                        @item.HKOSEI_YOTEI<br />
+                                        @item.HKOSEI_COMMIT
+                                    </td>
+                                    <td>
+                                        @item.KKOSEI_YOTEI<br />
+                                        @item.KKOSEI_COMMIT
+                                    </td>
+                                    <td>
+                                        @item.KOSEIKENSA_YOTEI<br />
+                                        @item.KOSEIKENSA_COMMIT
+                                    </td>
+                                    <td>
+                                        @item.GYOUMU_YOTEI<br />
+                                        @item.GYOUMU_COMMIT
+                                    </td>
+                                    <td>@item.WORK_MEMO</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+
+    </div>
+    @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
+    @Scripts.Render("~/Scripts/bootstrap.min.js")
+    @Scripts.Render("~/Scripts/Common.js")
+    @Scripts.Render("~/Scripts/TablePager.js")
+    <div hidden><div id="now"></div></div>
+    @Scripts.Render("~/Scripts/SeihanListSearch.js?p=(new Date()).getTime()")
+</body>
+</html>

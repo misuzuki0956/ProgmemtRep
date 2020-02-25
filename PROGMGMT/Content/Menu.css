@@ -1,0 +1,53 @@
+﻿.container {
+    width: 100%;
+}
+
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}
+
+.top {
+    padding: 4px 15px;
+    margin: 10px 0px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    background-color: #088A29;
+    box-sizing: border-box;
+    color: #ffffff;
+}
+
+.box {
+    margin: 0 auto;
+    padding: 15px 0;
+    text-align: center;
+    width: 50%;
+    background-color: #e8f2ea;
+    border-radius: 15px;
+}
+
+.menu {
+    margin: 0 auto;
+    display: inline-block;
+    text-align: left;
+    line-height: 60px;
+}
+
+a {
+    color: #034916;
+    text-decoration: underline;
+    text-decoration-color: #034916;
+
+}
+
+hr {
+    display: block;
+    width: 100%;
+    color: #088A29;
+    border: none;
+    border-top: 1px solid;
+}

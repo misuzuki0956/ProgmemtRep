@@ -1,0 +1,53 @@
+﻿.container {
+    width: 100%;
+}
+
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}
+
+.top {
+    padding: 4px 15px;
+    margin: 10px 0px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    background-color: #088A29;
+    box-sizing: border-box;
+    color: #ffffff;
+}
+
+.main {
+    text-align: center;
+    font-size: 20px;
+}
+
+label {
+    margin-right: 10px;
+}
+
+.btn {
+    width: 200px;
+    height: 40px;
+}
+
+hr {
+    display: block;
+    width: 100%;
+    color: #088A29;
+    border: none;
+    border-top: 1px solid;
+}
+
+.message {
+    text-align: left;
+    font-size: 20px;
+}
+
+ul{
+    list-style: none;
+}
